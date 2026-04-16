@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://bdtmbcelvboqs"]
+
+[ext_resource type="Script" uid="uid://dktwlmbyetk65" path="res://addons/levelgenerator/custom_nodes/drunkenwalk_gen.gd" id="2_noarx"]
+[ext_resource type="Script" uid="uid://bc1a535dsitwu" path="res://addons/levelgenerator/custom_nodes/dungeon_instancer.gd" id="3_a0tk4"]
+[ext_resource type="PackedScene" uid="uid://djxbp1xmh7jif" path="res://LevelTilePresets/centre.tscn" id="4_jka67"]
+[ext_resource type="PackedScene" uid="uid://clvijhmirerwa" path="res://LevelTilePresets/north_side.tscn" id="4_jsk3o"]
+[ext_resource type="Script" uid="uid://b0lft0p65dmw4" path="res://addons/levelgenerator/custom_nodes/level_tilemap.gd" id="4_r3fl7"]
+[ext_resource type="PackedScene" uid="uid://byqpss6ycuhj6" path="res://LevelTilePresets/south_side.tscn" id="5_4arys"]
+[ext_resource type="PackedScene" uid="uid://b1ivkl5myrtp0" path="res://LevelTilePresets/east_side.tscn" id="6_6iypd"]
+[ext_resource type="PackedScene" uid="uid://db3dquoov73ia" path="res://LevelTilePresets/west_side.tscn" id="7_tereu"]
+[ext_resource type="PackedScene" uid="uid://cygjipsgyw054" path="res://LevelTilePresets/northwest_corner.tscn" id="8_wlxy5"]
+[ext_resource type="PackedScene" uid="uid://cojpy7jqbqevc" path="res://LevelTilePresets/northeast_corner.tscn" id="9_3v7ru"]
+[ext_resource type="Script" uid="uid://ctealoqe7bwke" path="res://character_body_3d.gd" id="9_4arys"]
+[ext_resource type="Script" uid="uid://dnqv3qwg6nr1" path="res://springarm.gd" id="10_6iypd"]
+[ext_resource type="PackedScene" uid="uid://cg627ynknth5e" path="res://LevelTilePresets/southwest_corner.tscn" id="10_tcnuu"]
+[ext_resource type="PackedScene" uid="uid://dg0hf1kds2of5" path="res://LevelTilePresets/southeast_corner.tscn" id="11_tuemg"]
+[ext_resource type="PackedScene" uid="uid://u45lnxl7tnxj" path="res://LevelTilePresets/north_south_straight.tscn" id="12_jsnrv"]
+[ext_resource type="PackedScene" uid="uid://hughsrs53w4" path="res://LevelTilePresets/east_west_straight.tscn" id="13_lggff"]
+[ext_resource type="PackedScene" uid="uid://dpdmbg4c84vay" path="res://LevelTilePresets/north_deadend.tscn" id="14_s0gvp"]
+[ext_resource type="PackedScene" uid="uid://t6a8ll1iya25" path="res://LevelTilePresets/south_deadend.tscn" id="15_vxd74"]
+[ext_resource type="PackedScene" uid="uid://2y07d7v5cxlu" path="res://LevelTilePresets/east_deadend.tscn" id="16_dhlwf"]
+[ext_resource type="PackedScene" uid="uid://4vfjvyo8w5pb" path="res://LevelTilePresets/west_deadend.tscn" id="17_5t8nk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6iypd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tereu"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_jsnrv"]
+size = Vector2(200, 200)
+
+[node name="Node3D" type="Node3D" unique_id=199686083]
+
+[node name="DWGen" type="Node" parent="." unique_id=960311505]
+script = ExtResource("2_noarx")
+steps = 48
+level_width = 100
+level_height = 100
+metadata/_custom_type_script = "uid://dktwlmbyetk65"
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1019510905]
+transform = Transform3D(1, 0, 0, 0, -0.013857442, 0.999904, 0, -0.999904, -0.013857442, 0, 14.734783, 0)
+
+[node name="DungeonInstancer" type="Node3D" parent="." unique_id=1399729836 node_paths=PackedStringArray("tilemap", "generator")]
+script = ExtResource("3_a0tk4")
+tilemap = NodePath("../RoomTilemap")
+generator = NodePath("../DWGen")
+tile_rows = 100
+tile_columns = 100
+metadata/_custom_type_script = "uid://bc1a535dsitwu"
+
+[node name="RoomTilemap" type="Node3D" parent="." unique_id=1388930823]
+script = ExtResource("4_r3fl7")
+north_side = ExtResource("4_jsk3o")
+south_side = ExtResource("5_4arys")
+east_side = ExtResource("6_6iypd")
+west_side = ExtResource("7_tereu")
+northwest_corner = ExtResource("8_wlxy5")
+northeast_corner = ExtResource("9_3v7ru")
+southwest_corner = ExtResource("10_tcnuu")
+southeast_corner = ExtResource("11_tuemg")
+north_south_straight = ExtResource("12_jsnrv")
+east_west_straight = ExtResource("13_lggff")
+north_deadend = ExtResource("14_s0gvp")
+south_deadend = ExtResource("15_vxd74")
+east_deadend = ExtResource("16_dhlwf")
+west_deadend = ExtResource("17_5t8nk")
+centre = ExtResource("4_jka67")
+enclosed = ExtResource("4_jka67")
+metadata/_custom_type_script = "uid://b0lft0p65dmw4"
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=319862776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9897437, 4.493917)
+script = ExtResource("9_4arys")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1437981065]
+visible = false
+mesh = SubResource("CapsuleMesh_6iypd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=597289080]
+shape = SubResource("BoxShape3D_tereu")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CharacterBody3D" unique_id=10392894]
+script = ExtResource("10_6iypd")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/SpringArm3D" unique_id=685074523]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.3285036)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=84077227]
+transform = Transform3D(1, 0, 0, 0, 0.39167884, 0.920102, 0, -0.920102, 0.39167884, 0, 0, 0)
+
+[node name="roof" type="MeshInstance3D" parent="." unique_id=205205493]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 26.935928, 0)
+mesh = SubResource("QuadMesh_jsnrv")
