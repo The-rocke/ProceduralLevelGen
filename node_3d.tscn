@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://bdtmbcelvboqs"]
 
-[ext_resource type="Script" uid="uid://dktwlmbyetk65" path="res://addons/levelgenerator/custom_nodes/drunkenwalk_gen.gd" id="2_noarx"]
-[ext_resource type="Script" uid="uid://bc1a535dsitwu" path="res://addons/levelgenerator/custom_nodes/dungeon_instancer.gd" id="3_a0tk4"]
+[ext_resource type="Script" uid="uid://dco4aj5d218fj" path="res://addons/dungeoncreator/custom_types/dungeon_creator.gd" id="3_jka67"]
+[ext_resource type="Script" uid="uid://rptunux0tenf" path="res://addons/dungeoncreator/custom_types/drunken_walk_gen.gd" id="4_i5arm"]
 [ext_resource type="PackedScene" uid="uid://djxbp1xmh7jif" path="res://LevelTilePresets/centre.tscn" id="4_jka67"]
 [ext_resource type="PackedScene" uid="uid://clvijhmirerwa" path="res://LevelTilePresets/north_side.tscn" id="4_jsk3o"]
-[ext_resource type="Script" uid="uid://b0lft0p65dmw4" path="res://addons/levelgenerator/custom_nodes/level_tilemap.gd" id="4_r3fl7"]
 [ext_resource type="PackedScene" uid="uid://byqpss6ycuhj6" path="res://LevelTilePresets/south_side.tscn" id="5_4arys"]
+[ext_resource type="Script" uid="uid://u7xjxax16ve8" path="res://addons/dungeoncreator/custom_types/ant_nest_gen.gd" id="5_lggff"]
+[ext_resource type="Script" uid="uid://uw5josa0x30i" path="res://addons/dungeoncreator/custom_types/tilemap3d.gd" id="5_wc5p8"]
 [ext_resource type="PackedScene" uid="uid://b1ivkl5myrtp0" path="res://LevelTilePresets/east_side.tscn" id="6_6iypd"]
 [ext_resource type="PackedScene" uid="uid://db3dquoov73ia" path="res://LevelTilePresets/west_side.tscn" id="7_tereu"]
 [ext_resource type="PackedScene" uid="uid://cygjipsgyw054" path="res://LevelTilePresets/northwest_corner.tscn" id="8_wlxy5"]
@@ -25,48 +26,10 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tereu"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_jsnrv"]
-size = Vector2(200, 200)
-
 [node name="Node3D" type="Node3D" unique_id=199686083]
-
-[node name="DWGen" type="Node" parent="." unique_id=960311505]
-script = ExtResource("2_noarx")
-steps = 48
-level_width = 100
-level_height = 100
-metadata/_custom_type_script = "uid://dktwlmbyetk65"
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1019510905]
 transform = Transform3D(1, 0, 0, 0, -0.013857442, 0.999904, 0, -0.999904, -0.013857442, 0, 14.734783, 0)
-
-[node name="DungeonInstancer" type="Node3D" parent="." unique_id=1399729836 node_paths=PackedStringArray("tilemap", "generator")]
-script = ExtResource("3_a0tk4")
-tilemap = NodePath("../RoomTilemap")
-generator = NodePath("../DWGen")
-tile_rows = 100
-tile_columns = 100
-metadata/_custom_type_script = "uid://bc1a535dsitwu"
-
-[node name="RoomTilemap" type="Node3D" parent="." unique_id=1388930823]
-script = ExtResource("4_r3fl7")
-north_side = ExtResource("4_jsk3o")
-south_side = ExtResource("5_4arys")
-east_side = ExtResource("6_6iypd")
-west_side = ExtResource("7_tereu")
-northwest_corner = ExtResource("8_wlxy5")
-northeast_corner = ExtResource("9_3v7ru")
-southwest_corner = ExtResource("10_tcnuu")
-southeast_corner = ExtResource("11_tuemg")
-north_south_straight = ExtResource("12_jsnrv")
-east_west_straight = ExtResource("13_lggff")
-north_deadend = ExtResource("14_s0gvp")
-south_deadend = ExtResource("15_vxd74")
-east_deadend = ExtResource("16_dhlwf")
-west_deadend = ExtResource("17_5t8nk")
-centre = ExtResource("4_jka67")
-enclosed = ExtResource("4_jka67")
-metadata/_custom_type_script = "uid://b0lft0p65dmw4"
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=319862776]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9897437, 4.493917)
@@ -89,6 +52,46 @@ current = true
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=84077227]
 transform = Transform3D(1, 0, 0, 0, 0.39167884, 0.920102, 0, -0.920102, 0.39167884, 0, 0, 0)
 
-[node name="roof" type="MeshInstance3D" parent="." unique_id=205205493]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 26.935928, 0)
-mesh = SubResource("QuadMesh_jsnrv")
+[node name="DungeonCreator" type="Node3D" parent="." unique_id=328616817 node_paths=PackedStringArray("tilemap", "generator")]
+script = ExtResource("3_jka67")
+tilemap = NodePath("../Tilemap3D")
+generator = NodePath("AntNestGen")
+width = 70
+height = 70
+metadata/_custom_type_script = "uid://dco4aj5d218fj"
+
+[node name="DrunkenWalkGen" type="Node" parent="DungeonCreator" unique_id=1431524655]
+script = ExtResource("4_i5arm")
+min_coverage_percent = 21.7
+seed = 13
+width = 70
+height = 70
+metadata/_custom_type_script = "uid://rptunux0tenf"
+
+[node name="AntNestGen" type="Node" parent="DungeonCreator" unique_id=1992907933]
+script = ExtResource("5_lggff")
+hub_count = 8
+seed = 9
+width = 70
+height = 70
+metadata/_custom_type_script = "uid://u7xjxax16ve8"
+
+[node name="Tilemap3D" type="Node3D" parent="." unique_id=980985689]
+script = ExtResource("5_wc5p8")
+north_side = ExtResource("4_jsk3o")
+south_side = ExtResource("5_4arys")
+east_side = ExtResource("6_6iypd")
+west_side = ExtResource("7_tereu")
+northwest_corner = ExtResource("8_wlxy5")
+northeast_corner = ExtResource("9_3v7ru")
+southwest_corner = ExtResource("10_tcnuu")
+southeast_corner = ExtResource("11_tuemg")
+north_south_straight = ExtResource("12_jsnrv")
+east_west_straight = ExtResource("13_lggff")
+north_deadend = ExtResource("14_s0gvp")
+south_deadend = ExtResource("15_vxd74")
+east_deadend = ExtResource("16_dhlwf")
+west_deadend = ExtResource("17_5t8nk")
+centre = ExtResource("4_jka67")
+enclosed = ExtResource("17_5t8nk")
+metadata/_custom_type_script = "uid://uw5josa0x30i"

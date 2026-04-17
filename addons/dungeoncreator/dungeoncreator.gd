@@ -3,6 +3,7 @@ extends EditorPlugin
 
 
 func _enable_plugin() -> void:
+	# Add autoloads here.
 	pass
 
 
@@ -12,6 +13,7 @@ func _disable_plugin() -> void:
 
 
 func _enter_tree() -> void:
+	# Initialization of the plugin goes here.
 	pass
 
 

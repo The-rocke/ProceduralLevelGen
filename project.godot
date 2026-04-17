@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="ProceduralLevelGen"
+config/tags=PackedStringArray("plugin")
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/levelgenerator/plugin.cfg")
+enabled=PackedStringArray("res://addons/dungeoncreator/plugin.cfg")
 
 [physics]
 

@@ -1,4 +1,4 @@
-class_name RoomTilemap
+class_name Tilemap3D
 extends Node3D
 
 # SIDE TILES
