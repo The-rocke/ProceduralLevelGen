@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://db3dquoov73ia" path="res://LevelTilePresets/west_side.tscn" id="7_tereu"]
 [ext_resource type="PackedScene" uid="uid://cygjipsgyw054" path="res://LevelTilePresets/northwest_corner.tscn" id="8_wlxy5"]
 [ext_resource type="PackedScene" uid="uid://cojpy7jqbqevc" path="res://LevelTilePresets/northeast_corner.tscn" id="9_3v7ru"]
-[ext_resource type="Script" uid="uid://ctealoqe7bwke" path="res://character_body_3d.gd" id="9_4arys"]
-[ext_resource type="Script" uid="uid://dnqv3qwg6nr1" path="res://springarm.gd" id="10_6iypd"]
+[ext_resource type="Script" uid="uid://ctealoqe7bwke" path="res://Test Scene/character_body_3d.gd" id="9_4arys"]
+[ext_resource type="Script" uid="uid://dnqv3qwg6nr1" path="res://Test Scene/springarm.gd" id="10_6iypd"]
 [ext_resource type="PackedScene" uid="uid://cg627ynknth5e" path="res://LevelTilePresets/southwest_corner.tscn" id="10_tcnuu"]
 [ext_resource type="PackedScene" uid="uid://dg0hf1kds2of5" path="res://LevelTilePresets/southeast_corner.tscn" id="11_tuemg"]
 [ext_resource type="PackedScene" uid="uid://u45lnxl7tnxj" path="res://LevelTilePresets/north_south_straight.tscn" id="12_jsnrv"]
@@ -32,7 +32,7 @@
 transform = Transform3D(1, 0, 0, 0, -0.013857442, 0.999904, 0, -0.999904, -0.013857442, 0, 14.734783, 0)
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=319862776]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9897437, 4.493917)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6143537, 0.9897437, 4.493917)
 script = ExtResource("9_4arys")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1437981065]
@@ -56,24 +56,25 @@ transform = Transform3D(1, 0, 0, 0, 0.39167884, 0.920102, 0, -0.920102, 0.391678
 script = ExtResource("3_jka67")
 tilemap = NodePath("../Tilemap3D")
 generator = NodePath("AntNestGen")
-width = 70
-height = 70
+width = 75
+height = 75
 metadata/_custom_type_script = "uid://dco4aj5d218fj"
 
 [node name="DrunkenWalkGen" type="Node" parent="DungeonCreator" unique_id=1431524655]
 script = ExtResource("4_i5arm")
-min_coverage_percent = 21.7
+steps = 96
+min_coverage_percent = 27.7
 seed = 13
-width = 70
-height = 70
+width = 86
+height = 90
 metadata/_custom_type_script = "uid://rptunux0tenf"
 
 [node name="AntNestGen" type="Node" parent="DungeonCreator" unique_id=1992907933]
 script = ExtResource("5_lggff")
-hub_count = 8
-seed = 9
-width = 70
-height = 70
+max_ants = 4
+seed = 1
+width = 75
+height = 75
 metadata/_custom_type_script = "uid://u7xjxax16ve8"
 
 [node name="Tilemap3D" type="Node3D" parent="." unique_id=980985689]

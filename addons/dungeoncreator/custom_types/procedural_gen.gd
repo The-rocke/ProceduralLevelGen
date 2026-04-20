@@ -49,7 +49,7 @@ func get_rand_occupied_point() -> Vector2:
 func point_is_empty(pos: Vector2) -> bool:
 	if pos.x < 0 or pos.x >= width:
 		return true
-	if pos.x < 0 or pos.y >= width:
+	if pos.y < 0 or pos.y >= height:
 		return true
 	if map.get_point(pos) == 0:
 		return true

@@ -22,6 +22,9 @@ extends Node3D
 
 var tiles = []
 
+func _ready() -> void:
+	instance_level()
+
 func instance_level() -> void:
 	clear_level() # Removes tiles that may have been pre-placed
 

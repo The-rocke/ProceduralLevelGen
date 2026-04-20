@@ -4,6 +4,9 @@ extends ProceduralGen
 
 @export var hub_count := 10
 
+@export var min_ants := 2
+@export var max_ants := 3
+
 var hub_list = []
 
 func generate() -> void:
@@ -14,21 +17,22 @@ func generate() -> void:
 	# Creates "hubs" at random positions
 	for i in hub_count:
 		var pos = get_random_point()
-		map.set_point(pos, 1)
+		
+		if map.get_point(pos) == 0:
+			map.set_point(pos, 1)
+			occupied_points.append(pos)
+		
 		hub_list.append(pos)
 	
 	for h in hub_list.size()-1:
 		var hub = hub_list[h]
 		
-		if h <= hub_list.size()-3:
-			spawn_ant(hub, hub_list[h+1])
-			spawn_ant(hub, hub_list[h+2])
-		elif h == hub_list.size()-2:
-			spawn_ant(hub, hub_list[h+1])
-			spawn_ant(hub, hub_list[0])
-		elif h == hub_list.size()-1:
-			spawn_ant(hub, hub_list[0])
-			spawn_ant(hub, hub_list[1])
+		var ants = rng.randi_range(min_ants, max_ants)
+		for a in range(1, ants+1):
+			if h <= hub_list.size()-1-a:
+				spawn_ant(hub, hub_list[h+a])
+			else:
+				spawn_ant(hub, hub_list[-ants+a])
 
 func spawn_ant(start: Vector2, end: Vector2) -> void:
 	var ant_position = start
@@ -57,7 +61,10 @@ func spawn_ant(start: Vector2, end: Vector2) -> void:
 		
 		var velocity = get_velocity(direction)
 		ant_position += velocity
-		map.set_point(ant_position, 1)
+		
+		if map.get_point(ant_position) == 0:
+			map.set_point(ant_position, 1)
+			occupied_points.append(ant_position)
 
 func get_velocity(direction: int) -> Vector2:
 	match direction:
